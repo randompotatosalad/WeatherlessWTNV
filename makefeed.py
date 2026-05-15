@@ -1,5 +1,6 @@
 from pathlib import Path
 from urllib.parse import quote
+from xml.sax.saxutils import escape
 
 BASE_URL = "https://randompotatosalad.github.io/WeatherlessWTNV"
 
@@ -10,7 +11,7 @@ rss = """<?xml version="1.0" encoding="UTF-8"?>
 <channel>
 
 <title>WeatherlessWTNV</title>
-<description>Personal podcast archive</description>
+<description>The Welcome to Night Vale podcast without ads or the weather.</description>
 <link>https://randompotatosalad.github.io/WeatherlessWTNV/</link>
 <language>en-us</language>
 
@@ -18,7 +19,7 @@ rss = """<?xml version="1.0" encoding="UTF-8"?>
 
 for file in files:
     filename = file.name
-    title = filename.replace(".mp3", "")
+    title = escape(filename.replace(".mp3", ""))
     encoded = quote(filename)
 
     rss += f"""
